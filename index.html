@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proceso de resolución — Guía Torrevieja (M3)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Google Sans"', 'Roboto', 'system-ui', 'sans-serif'],
+            body: ['Roboto', 'sans-serif'],
+          },
+          colors: {
+            // M3 Token Palette: Mediterráneo + Laguna Rosa
+            m3: {
+              // Light tokens
+              light: {
+                primary: '#00658F',
+                onPrimary: '#FFFFFF',
+                primaryContainer: '#C7E7FF',
+                onPrimaryContainer: '#001E2E',
+                secondary: '#4F606E',
+                onSecondary: '#FFFFFF',
+                secondaryContainer: '#D2E5F5',
+                onSecondaryContainer: '#0B1D29',
+                tertiary: '#944163', // Laguna Rosa
+                onTertiary: '#FFFFFF',
+                tertiaryContainer: '#FFD9E4',
+                onTertiaryContainer: '#3C0020',
+                surface: '#F8F9FD',
+                surfaceDim: '#D8DAE0',
+                surfaceBright: '#F8F9FD',
+                surfaceContainerLowest: '#FFFFFF',
+                surfaceContainerLow: '#F2F3FA',
+                surfaceContainer: '#ECEEF4',
+                surfaceContainerHigh: '#E6E8EE',
+                surfaceContainerHighest: '#E0E2E8',
+                onSurface: '#191C1E',
+                onSurfaceVariant: '#41474D',
+                outline: '#72787E',
+                outlineVariant: '#C1C7CE',
+              },
+              // Dark tokens (sin negro puro #000000)
+              dark: {
+                primary: '#85CEFF',
+                onPrimary: '#00344D',
+                primaryContainer: '#004C6D',
+                onPrimaryContainer: '#C7E7FF',
+                secondary: '#B6C9D8',
+                onSecondary: '#21323E',
+                secondaryContainer: '#374955',
+                onSecondaryContainer: '#D2E5F5',
+                tertiary: '#FFAFD0', // Laguna Rosa M3
+                onTertiary: '#5B1134',
+                tertiaryContainer: '#77294B',
+                onTertiaryContainer: '#FFD9E4',
+                surface: '#111416', // Tonally deep, not pitch black #000
+                surfaceDim: '#111416',
+                surfaceBright: '#373A3C',
+                surfaceContainerLowest: '#0C0F11',
+                surfaceContainerLow: '#191C1E',
+                surfaceContainer: '#1D2022',
+                surfaceContainerHigh: '#282B2D',
+                surfaceContainerHighest: '#333538',
+                onSurface: '#E1E2E5',
+                onSurfaceVariant: '#C1C7CE',
+                outline: '#8B9198',
+                outlineVariant: '#41474D',
+              }
+            }
+          },
+          borderRadius: {
+            'm3-xs': '4px',
+            'm3-sm': '8px',
+            'm3-md': '12px',
+            'm3-lg': '16px',
+            'm3-xl': '28px',
+            'm3-full': '9999px',
+          },
+          boxShadow: {
+            'm3-elev-1': '0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30)',
+            'm3-elev-2': '0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.30)',
+            'm3-elev-3': '0px 4px 8px 3px rgba(0, 0, 0, 0.15), 0px 1px 3px 0px rgba(0, 0, 0, 0.30)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+    .material-symbols-outlined.fill-1 {
+      font-variation-settings: 'FILL' 1;
+    }
+    /* Smooth transitions for theme toggle */
+    body, header, main, div, section, card, button {
+      transition: background-color 0.25s cubic-bezier(0.2, 0, 0, 1),
+                  color 0.2s cubic-bezier(0.2, 0, 0, 1),
+                  border-color 0.2s ease,
+                  box-shadow 0.2s ease;
+    }
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(140, 150, 160, 0.3);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(140, 150, 160, 0.5);
+    }
+  </style>
+</head>
+<body class="bg-[#F8F9FD] dark:bg-[#111416] text-[#191C1E] dark:text-[#E1E2E5] font-sans antialiased min-h-screen flex flex-col selection:bg-[#C7E7FF] selection:text-[#001E2E] dark:selection:bg-[#004C6D] dark:selection:text-[#C7E7FF]">
+
+  <!-- TOP APP BAR (Material Design 3 Center-aligned / Medium Top App Bar) -->
+  <header class="sticky top-0 z-50 bg-[#F8F9FD]/95 dark:bg-[#111416]/95 backdrop-blur-md border-b border-[#C1C7CE]/30 dark:border-[#41474D]/30 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand & Title info -->
+      <div class="flex items-center gap-3.5 min-w-0">
+        <div class="w-11 h-11 rounded-m3-xl bg-[#00658F] dark:bg-[#85CEFF] text-white dark:text-[#00344D] flex items-center justify-center shadow-m3-elev-1 shrink-0">
+          <span class="material-symbols-outlined text-[24px]">explore</span>
+        </div>
+        <div class="min-w-0">
+          <div class="flex items-center gap-2">
+            <span class="inline-flex items-center gap-1 text-[11px] font-medium tracking-wide uppercase px-2 py-0.5 rounded-m3-xs bg-[#C7E7FF] dark:bg-[#004C6D] text-[#001E2E] dark:text-[#C7E7FF]">
+              Material Design 3
+            </span>
+            <span class="hidden sm:inline-block text-[11px] font-medium text-[#72787E] dark:text-[#8B9198]">
+              Multiplataforma · 2º DAM
+            </span>
+          </div>
+          <h1 class="text-base sm:text-lg font-bold text-[#191C1E] dark:text-[#E1E2E5] truncate leading-tight mt-0.5">
+            Guía Torrevieja — Proceso de resolución
+          </h1>
+        </div>
+      </div>
+
+      <!-- Actions & Theme Toggle -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        
+        <!-- Theme toggle icon button (M3 Standard Icon Button) -->
+        <button id="themeToggle" onclick="toggleTheme()" 
+          title="Alternar Modo Claro / Oscuro"
+          class="w-11 h-11 rounded-full flex items-center justify-center text-[#41474D] dark:text-[#C1C7CE] hover:bg-[#ECEEF4] dark:hover:bg-[#1D2022] active:bg-[#E0E2E8] dark:active:bg-[#333538] transition-colors relative"
+          aria-label="Alternar tema de color">
+          <span id="themeIcon" class="material-symbols-outlined text-[22px]">dark_mode</span>
+        </button>
+
+        <!-- Quick Links (GitHub & Pages) -->
+        <a href="https://github.com/DMR2DAM/T5.-Gu-a-de-viajes-de-mi-pueblo" target="_blank" rel="noopener noreferrer"
+           class="hidden md:inline-flex items-center gap-2 h-10 px-4 rounded-m3-full border border-[#72787E] dark:border-[#8B9198] text-[#00658F] dark:text-[#85CEFF] hover:bg-[#00658F]/5 dark:hover:bg-[#85CEFF]/10 text-sm font-medium transition">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+
+        <a href="https://dmr2dam.github.io/T5.-Gu-a-de-viajes-de-mi-pueblo/" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 h-10 px-4 rounded-m3-full bg-[#00658F] dark:bg-[#85CEFF] text-white dark:text-[#00344D] text-sm font-medium shadow-m3-elev-1 hover:shadow-m3-elev-2 active:shadow-m3-elev-1 hover:brightness-105 transition">
+          <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+          <span class="font-medium">Abrir Web</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative overflow-hidden pt-8 pb-12 sm:pt-12 sm:pb-16 bg-gradient-to-b from-[#ECEEF4]/60 to-transparent dark:from-[#1D2022]/40 dark:to-transparent">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Breadcrumb badge & subtitle -->
+      <div class="flex flex-wrap items-center gap-2 mb-4 text-sm font-medium text-[#4F606E] dark:text-[#B6C9D8]">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-m3-full bg-[#D2E5F5] dark:bg-[#374955] text-[#0B1D29] dark:text-[#D2E5F5] text-xs font-semibold">
+          <span class="material-symbols-outlined text-[14px]">school</span> T5. Guía de viajes de mi pueblo
+        </span>
+        <span>•</span>
+        <span class="text-xs sm:text-sm text-[#72787E] dark:text-[#8B9198]">Diseño y desarrollo multiplataforma</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- Hero Copy -->
+        <div class="lg:col-span-7 space-y-5">
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#191C1E] dark:text-[#E1E2E5] tracking-tight leading-[1.15]">
+            Memoria técnica y evolución del proyecto <span class="text-[#00658F] dark:text-[#85CEFF]">Guía Torrevieja</span>
+          </h2>
+          <p class="text-base sm:text-lg text-[#41474D] dark:text-[#C1C7CE] font-body leading-relaxed max-w-2xl">
+            Documentación integral del proceso de resolución y desarrollo iterativo: desde la concepción gráfica en Google Stitch y Material Design 3, enlazado de vistas HTML locales, resolución de legibilidad en Dark Mode, integración de mapas dinámicos hasta la captura de condiciones meteorológicas en tiempo real.
+          </p>
+
+          <!-- LOS DOS BOTONES CLAVE SOLICITADOS -->
+          <div class="pt-2 flex flex-wrap items-center gap-3.5">
+            <!-- Botón 1: Repositorio GitHub (Filled / Outlined con icono de código) -->
+            <a href="https://github.com/DMR2DAM/T5.-Gu-a-de-viajes-de-mi-pueblo" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2.5 h-12 px-6 rounded-m3-full bg-[#00658F] dark:bg-[#85CEFF] text-white dark:text-[#00344D] text-sm font-semibold tracking-wide shadow-m3-elev-1 hover:shadow-m3-elev-2 active:scale-[0.98] transition">
+              <span class="material-symbols-outlined text-[20px]">code</span>
+              <span>Repositorio de GitHub</span>
+            </a>
+
+            <!-- Botón 2: Ver en GitHub Pages (FilledTonalButton con icono web/apertura externa) -->
+            <a href="https://dmr2dam.github.io/T5.-Gu-a-de-viajes-de-mi-pueblo/" target="_blank" rel="noopener noreferrer"
+               class="inline-flex items-center gap-2.5 h-12 px-6 rounded-m3-full bg-[#D2E5F5] dark:bg-[#374955] text-[#0B1D29] dark:text-[#D2E5F5] hover:bg-[#C7E7FF] dark:hover:bg-[#4F606E] text-sm font-semibold tracking-wide border border-transparent dark:border-[#85CEFF]/20 active:scale-[0.98] transition">
+              <span class="material-symbols-outlined text-[20px]">language</span>
+              <span>Ver en GitHub Pages</span>
+              <span class="material-symbols-outlined text-[16px] -ml-1 text-[#4F606E] dark:text-[#B6C9D8]">north_east</span>
+            </a>
+          </div>
+
+          <!-- Feature pills / M3 highlights -->
+          <div class="pt-3 flex flex-wrap gap-2 text-xs font-medium text-[#41474D] dark:text-[#C1C7CE]">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-m3-lg bg-[#ECEEF4] dark:bg-[#1D2022] border border-[#C1C7CE]/40 dark:border-[#41474D]/50">
+              <span class="w-2 h-2 rounded-full bg-[#00658F] dark:bg-[#85CEFF]"></span>
+              Azul Mediterráneo & Rosa Salina
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-m3-lg bg-[#ECEEF4] dark:bg-[#1D2022] border border-[#C1C7CE]/40 dark:border-[#41474D]/50">
+              <span class="material-symbols-outlined text-[14px]">devices</span>
+              NavigationRail & NavigationBar
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-m3-lg bg-[#ECEEF4] dark:bg-[#1D2022] border border-[#C1C7CE]/40 dark:border-[#41474D]/50">
+              <span class="material-symbols-outlined text-[14px]">partly_cloudy_day</span>
+              Open-Meteo Live API
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-m3-lg bg-[#ECEEF4] dark:bg-[#1D2022] border border-[#C1C7CE]/40 dark:border-[#41474D]/50">
+              <span class="material-symbols-outlined text-[14px]">map</span>
+              Google Maps Nativo
+            </span>
+          </div>
+        </div>
+
+        <!-- Hero Preview Interactive Card (M3 ElevatedCard) -->
+        <div class="lg:col-span-5">
+          <div class="rounded-m3-xl bg-[#FFFFFF] dark:bg-[#1D2022] p-4 sm:p-5 border border-[#C1C7CE]/40 dark:border-[#41474D]/50 shadow-m3-elev-2 space-y-4">
+            <div class="flex items-center justify-between border-b border-[#ECEEF4] dark:border-[#282B2D] pb-3">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-[#00658F] dark:text-[#85CEFF]">verified</span>
+                <span class="text-sm font-semibold text-[#191C1E] dark:text-[#E1E2E5]">Ficha de Entrega del Proyecto</span>
+              </div>
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded-m3-full bg-[#FFD9E4] dark:bg-[#77294B] text-[#944163] dark:text-[#FFAFD0]">
+                Versión 3.0 Final
+              </span>
+            </div>
+
+            <!-- Mini stats grid -->
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div class="p-3 rounded-m3-lg bg-[#F2F3FA] dark:bg-[#191C1E]">
+                <div class="text-[#72787E] dark:text-[#8B9198]">Vistas interconectadas</div>
+                <div class="text-base font-bold text-[#00658F] dark:text-[#85CEFF] mt-0.5">5 pantallas</div>
+                <div class="text-[10px] text-[#41474D] dark:text-[#C1C7CE]">index, turismo, gastro, dep, det</div>
+              </div>
+              <div class="p-3 rounded-m3-lg bg-[#F2F3FA] dark:bg-[#191C1E]">
+                <div class="text-[#72787E] dark:text-[#8B9198]">Puntos de interés</div>
+                <div class="text-base font-bold text-[#944163] dark:text-[#FFAFD0] mt-0.5">15 ubicaciones</div>
+                <div class="text-[10px] text-[#41474D] dark:text-[#C1C7CE]">Geolocalizadas con visor Google</div>
+              </div>
+              <div class="p-3 rounded-m3-lg bg-[#F2F3FA] dark:bg-[#191C1E]">
+                <div class="text-[#72787E] dark:text-[#8B9198]">Exportación datos</div>
+                <div class="text-base font-bold text-[#191C1E] dark:text-[#E1E2E5] mt-0.5">Favoritos .txt</div>
+                <div class="text-[10px] text-[#41474D] dark:text-[#C1C7CE]">Descarga sin backend externo</div>
+              </div>
+              <div class="p-3 rounded-m3-lg bg-[#F2F3FA] dark:bg-[#191C1E]">
+                <div class="text-[#72787E] dark:text-[#8B9198]">Accesibilidad</div>
+                <div class="text-base font-bold text-emerald-600 dark:text-emerald-400 mt-0.5">Alto Contraste</div>
+                <div class="text-[10px] text-[#41474D] dark:text-[#C1C7CE]">Sin negro puro #000000</div>
+              </div>
+            </div>
+
+            <!-- Preview image thumbnail -->
+            <div class="relative rounded-m3-lg overflow-hidden border border-[#C1C7CE]/30 dark:border-[#41474D]/30 group">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiWbKFj6trsyv2q3uX6E2hF6sNBi-70FxAwqJeWRVKGVZE3DUHteRr25A7niAYpjBAYueoSe7hD1WNhMoGuiy7mZT3ysTA7iflMqIgaxn2VTCFMUx7v5fAyOGJa4Y3CihN0jVe5aee4bIP2sazOdtVJVeY0WlVrJpeaGvSJXYww5ALedNh8N013uaR5cMZdnWWk1TqmTDJyWPcuW7WvWtHeBjDvenCKcC7RRnqn3i7Og4oc2RajEwG9Q" alt="Guía Torrevieja Vista Explorar" class="w-full h-44 object-cover object-top transition duration-300 group-hover:scale-105">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent flex items-end p-3">
+                <span class="text-xs font-medium text-white flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[16px]">visibility</span>
+                  Pantalla principal "Explorar" con clima integrado
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN CONTENT: FASES DEL PROCESO DE RESOLUCIÓN -->
+  <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+    
+    <!-- Section Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#C1C7CE]/40 dark:border-[#41474D]/40 gap-4">
+      <div>
+        <div class="text-xs font-bold uppercase tracking-wider text-[#00658F] dark:text-[#85CEFF] mb-1">
+          Evolución y Metodología
+        </div>
+        <h3 class="text-2xl sm:text-3xl font-extrabold text-[#191C1E] dark:text-[#E1E2E5]">
+          Fases del Proceso de Resolución
+        </h3>
+      </div>
+      <p class="text-sm text-[#72787E] dark:text-[#8B9198] max-w-md">
+        Estructura modular en cuadrícula adaptativa M3 con 16dp de radio de curvatura y superficies tonales armónicas.
+      </p>
+    </div>
+
+    <!-- ADAPTIVE GRID: 1 col (<600dp), 2 col (tablet), 3 col (desktop >840dp) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- FASE 1: DISEÑO INICIAL EN GOOGLE STITCH & M3 -->
+      <article class="flex flex-col rounded-m3-lg bg-[#FFFFFF] dark:bg-[#1D2022] border border-[#C1C7CE]/40 dark:border-[#41474D]/50 shadow-m3-elev-1 hover:shadow-m3-elev-2 transition-all overflow-hidden">
+        <div class="p-6 flex-grow flex flex-col justify-between">
+          <div>
+            <!-- Badge & Phase number -->
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-m3-xs text-xs font-bold bg-[#C7E7FF] dark:bg-[#004C6D] text-[#001E2E] dark:text-[#C7E7FF]">
+                Fase 1
+              </span>
+              <span class="text-xs font-medium text-[#72787E] dark:text-[#8B9198] flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">palette</span> Stitch & M3
+              </span>
+            </div>
+
+            <h4 class="text-lg font-bold text-[#191C1E] dark:text-[#E1E2E5] mb-2 leading-snug">
+              Diseño inicial en Google Stitch y Material Design 3
+            </h4>
+            
+            <p class="text-sm font-body text-[#41474D] dark:text-[#C1C7CE] mb-4 leading-relaxed">
+              Conceptualización del sistema multiplataforma adaptativo creando las 5 pantallas nodales de la guía turística con coherencia formal y sin negro puro (#000000).
+            </p>
+
+            <!-- Key points checklist -->
+            <ul class="space-y-2.5 text-xs text-[#41474D] dark:text-[#C1C7CE] mb-5">
+              <li class="flex items-start gap-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>5 pantallas diseñadas:</strong> "Explorar", "Sitios Turísticos y Naturaleza", "Gastronomía", "Deportes" y "Detalle".</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>Navegación adaptativa:</strong> <code>NavigationBar</code> inferior en móvil (&lt;600dp) y <code>NavigationRail</code> vertical en escritorio.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>Paleta cromática:</strong> Azul mediterráneo (primario) y rosa salina (terciario), evitando contrastes crudos.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>Rutas preparadas:</strong> Codificación para compatibilidad directa con GitHub Pages.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Thumbnail reference to image -->
+          <div class="rounded-m3-md overflow-hidden border border-[#C1C7CE]/30 dark:border-[#41474D]/30 bg-[#F2F3FA] dark:bg-[#191C1E]">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpfMQqoQZW_wtH46usKC-E8vziQMKsDdrKu2dxUKranvXUiXPzTDcZZ_nnELnqLbjSw_d9yqWprInOcKM12aQC7T_N1tMgdIESzG9moY2y7H4qjih49Tigr6y2xHof_1CAj2TK2IyGfun2sKDDnFjToreDST8L-THgJAnhhiowy7bJRWXLJ1G8C0sxMLiW4j2hFiDzRT7G7nCOqquWQnkjd660cfOZGH2Wq3fmgMt_iyFAl7ruXGRxjA" alt="Diseño inicial en Stitch" class="w-full h-36 object-cover object-top hover:scale-105 transition duration-300">
+            <div class="p-2 text-[11px] text-[#72787E] dark:text-[#8B9198] flex items-center justify-between">
+              <span>Gastronomía y Restaurantes</span>
+              <span class="font-mono text-[10px]">Stitch Canvas</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- FASE 2: ENLAZADO MULTIPANTALLA E IMÁGENES LOCALES -->
+      <article class="flex flex-col rounded-m3-lg bg-[#FFFFFF] dark:bg-[#1D2022] border border-[#C1C7CE]/40 dark:border-[#41474D]/50 shadow-m3-elev-1 hover:shadow-m3-elev-2 transition-all overflow-hidden">
+        <div class="p-6 flex-grow flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-m3-xs text-xs font-bold bg-[#D2E5F5] dark:bg-[#374955] text-[#0B1D29] dark:text-[#D2E5F5]">
+                Fase 2
+              </span>
+              <span class="text-xs font-medium text-[#72787E] dark:text-[#8B9198] flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">link</span> Rutas & Assets
+              </span>
+            </div>
+
+            <h4 class="text-lg font-bold text-[#191C1E] dark:text-[#E1E2E5] mb-2 leading-snug">
+              Enlazado multipantalla e imágenes locales
+            </h4>
+            
+            <p class="text-sm font-body text-[#41474D] dark:text-[#C1C7CE] mb-4 leading-relaxed">
+              Consolidación de la arquitectura estática en un paquete HTML autónomo con enrutamiento relativo y reemplazo de URLs temporales por recursos locales.
+            </p>
+
+            <ul class="space-y-2.5 text-xs text-[#41474D] dark:text-[#C1C7CE] mb-5">
+              <li class="flex items-start gap-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>Conexión entre archivos:</strong> Enlaces bidireccionales entre <code>index.html</code>, <code>turismo.html</code>, <code>gastronomia.html</code> y <code>deportes.html</code>.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>Detalle dinámico por URL:</strong> Paso de parámetros contextuales como <code>detalle.html?id=laguna-rosa</code> y botón de retorno inteligente.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>Imágenes optimizadas:</strong> Almacenamiento local de fotografías de alta resolución para cada enclave turístico y gastronómico.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="rounded-m3-md overflow-hidden border border-[#C1C7CE]/30 dark:border-[#41474D]/30 bg-[#F2F3FA] dark:bg-[#191C1E]">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjmFXt1NZX5I1SMygCeSLP66_gMEwbiBg2ZngyBfKGuM6sE9IbQdafj1TdEX9sGQGbKSj1pN95O0YCDg0ImW6ZtBOALeQOum6-EvuwrW57De3ztUeBOTzxOgxKRgwMEOEm-5HVLr-4fc3X-hrOj60su2r7iY87uG8lBdgdlYKbiZCgCglP-jcM-Kjj3Io3Nud6CvaRjjpIAICrm8o4YvJWKIQDHG72VlDaW7jKVMEkM0pBE_A3Rrd5Cw" alt="Prompt y enlazado multipantalla" class="w-full h-36 object-cover object-top hover:scale-105 transition duration-300">
+            <div class="p-2 text-[11px] text-[#72787E] dark:text-[#8B9198] flex items-center justify-between">
+              <span>Resolución de paquete ZIP de 5 archivos HTML</span>
+              <span class="font-mono text-[10px]">Prompt 2</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- FASE 3: LEGIBILIDAD, MODO OSCURO Y FAVORITOS (.TXT) -->
+      <article class="flex flex-col rounded-m3-lg bg-[#FFFFFF] dark:bg-[#1D2022] border border-[#C1C7CE]/40 dark:border-[#41474D]/50 shadow-m3-elev-1 hover:shadow-m3-elev-2 transition-all overflow-hidden">
+        <div class="p-6 flex-grow flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-m3-xs text-xs font-bold bg-[#FFD9E4] dark:bg-[#77294B] text-[#944163] dark:text-[#FFAFD0]">
+                Fase 3
+              </span>
+              <span class="text-xs font-medium text-[#72787E] dark:text-[#8B9198] flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">contrast</span> UX & Dark Mode
+              </span>
+            </div>
+
+            <h4 class="text-lg font-bold text-[#191C1E] dark:text-[#E1E2E5] mb-2 leading-snug">
+              Legibilidad, modo oscuro y favoritos (.txt)
+            </h4>
+            
+            <p class="text-sm font-body text-[#41474D] dark:text-[#C1C7CE] mb-4 leading-relaxed">
+              Refinamiento exhaustivo de interfaz para cumplir estándares de accesibilidad WCAG y valor práctico para el usuario final.
+            </p>
+
+            <ul class="space-y-2.5 text-xs text-[#41474D] dark:text-[#C1C7CE] mb-5">
+              <li class="flex items-start gap-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>Depuración de cabecera:</strong> Eliminación del icono innecesario de perfil de usuario para priorizar espacio y claridad.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>Contraste en Modo Oscuro:</strong> Corrección tonal en iconos, títulos, badges y valoraciones de estrellas sobre fondos oscuros.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>Descarga de Favoritos (.txt):</strong> Sistema nativo de guardado de puntos de interés y exportación en archivo de texto plano descargable.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="rounded-m3-md overflow-hidden border border-[#C1C7CE]/30 dark:border-[#41474D]/30 bg-[#F2F3FA] dark:bg-[#191C1E]">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6dMDHXondlsCLEtAAHpYAq5Kl-Bi2mAttNfjvf-bpFzbR92ByoHX6yWQZb9tZgy1oZy0N3oyIYHHxe--7P_znB733Vgh4-pQUND8k4ZCc1jEq03XURXcBVaIH1F--IrI6TvEpTFBDq85oL5IoPEYyiryUln8Kbx0R_3dYgJNiLtA0JgsOVLhQ_idTj9gw8RFIGk3nz9eZFGBLzhA5dbj4VNkdakPg3IlDaeHqpMsgd7D8zFop_MXD4g" alt="Acciones de detalle y descarga de favoritos" class="w-full h-36 object-cover object-top hover:scale-105 transition duration-300">
+            <div class="p-2 text-[11px] text-[#72787E] dark:text-[#8B9198] flex items-center justify-between">
+              <span>Gestión de favoritos y consejos prácticos</span>
+              <span class="font-mono text-[10px]">Detalle M3</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- FASE 4: MAPAS INTERACTIVOS DE GOOGLE MAPS -->
+      <article class="flex flex-col rounded-m3-lg bg-[#FFFFFF] dark:bg-[#1D2022] border border-[#C1C7CE]/40 dark:border-[#41474D]/50 shadow-m3-elev-1 hover:shadow-m3-elev-2 transition-all overflow-hidden lg:col-span-2">
+        <div class="p-6 flex-grow flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-m3-xs text-xs font-bold bg-[#C7E7FF] dark:bg-[#004C6D] text-[#001E2E] dark:text-[#C7E7FF]">
+                Fase 4
+              </span>
+              <span class="text-xs font-medium text-[#72787E] dark:text-[#8B9198] flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">pin_drop</span> Mapas Google Maps
+              </span>
+            </div>
+
+            <h4 class="text-lg font-bold text-[#191C1E] dark:text-[#E1E2E5] mb-2 leading-snug">
+              Mapas interactivos y delegación en el visor nativo de Google Maps
+            </h4>
+            
+            <p class="text-sm font-body text-[#41474D] dark:text-[#C1C7CE] mb-4 leading-relaxed">
+              Evolución y resolución completa de la geolocalización. Se reparó la visualización de los 15 puntos de interés y se optimizó la UX eliminando artefactos redundantes.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5 text-xs text-[#41474D] dark:text-[#C1C7CE]">
+              <div class="space-y-2 p-3.5 rounded-m3-md bg-[#F2F3FA] dark:bg-[#191C1E] border border-[#C1C7CE]/30 dark:border-[#41474D]/30">
+                <div class="font-bold text-[#00658F] dark:text-[#85CEFF] flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[16px]">map</span>
+                  Integración 15 puntos clave
+                </div>
+                <p>Ubicaciones geográficas completas divididas entre Sitios Turísticos (7), Gastronomía (3), Deportes y Naturaleza con coordenadas exactas.</p>
+              </div>
+
+              <div class="space-y-2 p-3.5 rounded-m3-md bg-[#F2F3FA] dark:bg-[#191C1E] border border-[#C1C7CE]/30 dark:border-[#41474D]/30">
+                <div class="font-bold text-[#944163] dark:text-[#FFAFD0] flex items-center gap-1.5">
+                  <span class="material-symbols-outlined text-[16px]">cleaning_services</span>
+                  Depuración de interfaz
+                </div>
+                <p>Eliminación del texto "Rutas conectadas", botones de acceso duplicados y flechas simuladas para delegar 100% en el visor embebido nativo.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Two thumbnails comparison -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="rounded-m3-md overflow-hidden border border-[#C1C7CE]/30 dark:border-[#41474D]/30 bg-[#F2F3FA] dark:bg-[#191C1E]">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ3wacstscOGjdDkYiAhHguSISiJU3l0-ApDjPgXcmeFocbNHqiOg-VUcLbwkgUHOacbRrwk4pL8PcIxKoZQfWhixARp-HbdpJ_w6KIwxxEQ40kUFuAmSTESPbytKDfs6vdpf910uTPs5oMe4vbpMq9Jvjj_1n4LA-PK7ptV4Kr4DzrHEaJhjyZCA2oMPipQ4ZW0j4SPeIfgtspAUjwvC6yL6VD4gSgTKDSh35R8cNVWX5IDpTCrzEDg" alt="Mapa interactivo corregido" class="w-full h-36 object-cover object-center hover:scale-105 transition duration-300">
+              <div class="p-2 text-[11px] text-[#72787E] dark:text-[#8B9198] flex items-center justify-between">
+                <span>Mapa 7 ubicaciones en Turismo</span>
+                <span class="font-mono text-[10px]">Resultado Pront 8</span>
+              </div>
+            </div>
+
+            <div class="rounded-m3-md overflow-hidden border border-[#C1C7CE]/30 dark:border-[#41474D]/30 bg-[#F2F3FA] dark:bg-[#191C1E]">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj53mu72-Kt-AN3QfsTAp6E7_DKzawKH8EhnxSK0ba7y8dE39a6-OjdQctOMkEScrHDvcFVVIDqPJtq0IktiOEWwvDcu-Mkcsj1pXg8fKZc0wq0w1eBNqmYWpnKk72Mf8YSlQXgjuwzG8W0BJe039sVcnws0PqDkgvZYXfCk7pARXHZlgfjbj5DCB8SXQ2pTsooEPVhvALXSy0h6NBft25VLVCKSNcx32RaRDfWtSzDQSPw8qorbh-Pw" alt="Mapa de puntos de la costa" class="w-full h-36 object-cover object-center hover:scale-105 transition duration-300">
+              <div class="p-2 text-[11px] text-[#72787E] dark:text-[#8B9198] flex items-center justify-between">
+                <span>Selector sincronizado y categorías</span>
+                <span class="font-mono text-[10px]">Resultado Pront 4</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- FASE 5: CLIMA Y DATOS MARINOS EN TIEMPO REAL -->
+      <article class="flex flex-col rounded-m3-lg bg-[#FFFFFF] dark:bg-[#1D2022] border border-[#C1C7CE]/40 dark:border-[#41474D]/50 shadow-m3-elev-1 hover:shadow-m3-elev-2 transition-all overflow-hidden">
+        <div class="p-6 flex-grow flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-m3-xs text-xs font-bold bg-[#D2E5F5] dark:bg-[#374955] text-[#0B1D29] dark:text-[#D2E5F5]">
+                Fase 5
+              </span>
+              <span class="text-xs font-medium text-[#72787E] dark:text-[#8B9198] flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">water_drop</span> Open-Meteo API
+              </span>
+            </div>
+
+            <h4 class="text-lg font-bold text-[#191C1E] dark:text-[#E1E2E5] mb-2 leading-snug">
+              Clima y datos marinos en tiempo real
+            </h4>
+            
+            <p class="text-sm font-body text-[#41474D] dark:text-[#C1C7CE] mb-4 leading-relaxed">
+              Integración de datos meteorológicos dinámicos en vivo sin depender de claves de API complejas ni servidores intermedios.
+            </p>
+
+            <ul class="space-y-2.5 text-xs text-[#41474D] dark:text-[#C1C7CE] mb-5">
+              <li class="flex items-start gap-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>API abierta Open-Meteo:</strong> Consulta automática en tiempo real de temperatura ambiental y cielo despejado/nublado.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>Condiciones del Mediterráneo:</strong> Temperatura del agua del mar y estado del oleaje (calma / moderado).</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="material-symbols-outlined text-emerald-600 dark:text-emerald-400 text-[16px] shrink-0 mt-0.5">check_circle</span>
+                <span><strong>Ciclo solar:</strong> Cálculo exacto diario de la hora del amanecer y atardecer para visitantes de Torrevieja.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="rounded-m3-md overflow-hidden border border-[#C1C7CE]/30 dark:border-[#41474D]/30 bg-[#F2F3FA] dark:bg-[#191C1E]">
+            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjiIafT2xuaW0zOYxJYwBkB5gwrstTJ7HTFUhUm3t220aix72YNZtbp7oOJbySy5pAyI5SVP8npSaGdEURJ43LY-j0oVy8ZtaleuJ3BsRyof2wwH2Oph2YvtsZH9r6vbeVXy_-VQOMxx8e6FE5GVYZRRxtTpwZAW7nN6I9BWem-dQEogucj4SRcNw0TXy1eeg5JCueBI9wOEYQOv-PR4yS2GsHaXDK_rgXEPMVgcEm_DousvVx41au2A" alt="Prompt e integración de clima" class="w-full h-36 object-cover object-top hover:scale-105 transition duration-300">
+            <div class="p-2 text-[11px] text-[#72787E] dark:text-[#8B9198] flex items-center justify-between">
+              <span>Integración del script de Open-Meteo</span>
+              <span class="font-mono text-[10px]">Prompt 7</span>
+            </div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- MATERIAL DESIGN 3 DESIGN SYSTEM SPECIFICATION -->
+    <section class="mt-12 rounded-m3-xl bg-[#FFFFFF] dark:bg-[#1D2022] border border-[#C1C7CE]/40 dark:border-[#41474D]/50 p-6 sm:p-8 shadow-m3-elev-1">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-m3-lg bg-[#944163] dark:bg-[#FFAFD0] text-white dark:text-[#5B1134] flex items-center justify-center">
+          <span class="material-symbols-outlined text-[22px]">brush</span>
+        </div>
+        <div>
+          <h4 class="text-xl font-bold text-[#191C1E] dark:text-[#E1E2E5]">
+            Directrices Visuales y Tokens Material Design 3
+          </h4>
+          <p class="text-xs text-[#72787E] dark:text-[#8B9198]">
+            Arquitectura de color tonal, elevaciones y adaptación de forma aplicadas en el proyecto
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+        
+        <!-- Palette Token Box -->
+        <div class="p-4 rounded-m3-lg bg-[#F8F9FD] dark:bg-[#191C1E] border border-[#C1C7CE]/30 dark:border-[#41474D]/40 space-y-3">
+          <div class="font-bold text-[#00658F] dark:text-[#85CEFF] flex items-center gap-1.5 text-xs uppercase tracking-wider">
+            <span class="material-symbols-outlined text-[16px]">colors</span> Paleta Tonal
+          </div>
+          <div class="space-y-2 text-xs">
+            <div class="flex items-center justify-between p-2 rounded-m3-xs bg-[#00658F] text-white">
+              <span>Primary (Mediterráneo)</span>
+              <span class="font-mono text-[10px]">#00658F</span>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded-m3-xs bg-[#944163] text-white">
+              <span>Tertiary (Laguna Rosa)</span>
+              <span class="font-mono text-[10px]">#944163</span>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded-m3-xs bg-[#111416] text-[#E1E2E5] border border-[#41474D]">
+              <span>Surface Dark (Sin negro puro)</span>
+              <span class="font-mono text-[10px]">#111416</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Typography & Shape Box -->
+        <div class="p-4 rounded-m3-lg bg-[#F8F9FD] dark:bg-[#191C1E] border border-[#C1C7CE]/30 dark:border-[#41474D]/40 space-y-3">
+          <div class="font-bold text-[#00658F] dark:text-[#85CEFF] flex items-center gap-1.5 text-xs uppercase tracking-wider">
+            <span class="material-symbols-outlined text-[16px]">text_fields</span> Forma y Tipografía
+          </div>
+          <ul class="space-y-2 text-xs text-[#41474D] dark:text-[#C1C7CE]">
+            <li><strong>Fuentes:</strong> Google Sans para titulares prominentes y Roboto para textos explicativos de alta densidad.</li>
+            <li><strong>Shape Scale:</strong> Cards con radio M3-Medium de 16dp, botones cápsula <code>rounded-full</code> y badges de 4dp.</li>
+            <li><strong>Jerarquía:</strong> Headline Medium, Title Small y Body Medium siguiendo la escala estándar M3.</li>
+          </ul>
+        </div>
+
+        <!-- Responsive Breakpoints Box -->
+        <div class="p-4 rounded-m3-lg bg-[#F8F9FD] dark:bg-[#191C1E] border border-[#C1C7CE]/30 dark:border-[#41474D]/40 space-y-3">
+          <div class="font-bold text-[#00658F] dark:text-[#85CEFF] flex items-center gap-1.5 text-xs uppercase tracking-wider">
+            <span class="material-symbols-outlined text-[16px]">responsive_layout</span> Cuadrícula Adaptativa
+          </div>
+          <ul class="space-y-2 text-xs text-[#41474D] dark:text-[#C1C7CE]">
+            <li><strong>Compact (&lt;600dp):</strong> 1 columna fluida, NavigationBar inferior con accesos directos táctiles de 48dp.</li>
+            <li><strong>Medium (600dp - 840dp):</strong> 2 columnas en cuadrícula, espaciado de 16dp para tablets.</li>
+            <li><strong>Expanded (&gt;840dp):</strong> 3 columnas, NavigationRail lateral fijo de 80dp y márgenes de 32dp.</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION BANNER CON ENLACES PRINCIPALES -->
+    <section class="mt-12 rounded-m3-xl bg-gradient-to-r from-[#00658F] to-[#004C6D] dark:from-[#004C6D] dark:to-[#1D2022] text-white p-8 sm:p-10 shadow-m3-elev-2 relative overflow-hidden">
+      <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="space-y-2 text-center md:text-left">
+          <h4 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+            Explora el resultado en vivo y el código fuente
+          </h4>
+          <p class="text-sm sm:text-base text-blue-100 max-w-xl">
+            Accede al despliegue interactivo completo en GitHub Pages o examina la estructura de commits, issues y archivos HTML en el repositorio oficial.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center gap-3 shrink-0">
+          <a href="https://github.com/DMR2DAM/T5.-Gu-a-de-viajes-de-mi-pueblo" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 h-12 px-6 rounded-m3-full bg-white text-[#004C6D] text-sm font-bold shadow-m3-elev-1 hover:bg-blue-50 active:scale-98 transition">
+            <span class="material-symbols-outlined text-[20px]">code</span>
+            <span>Repositorio de GitHub</span>
+          </a>
+
+          <a href="https://dmr2dam.github.io/T5.-Gu-a-de-viajes-de-mi-pueblo/" target="_blank" rel="noopener noreferrer"
+             class="inline-flex items-center gap-2 h-12 px-6 rounded-m3-full bg-[#85CEFF] text-[#001E2E] text-sm font-bold shadow-m3-elev-1 hover:brightness-105 active:scale-98 transition">
+            <span class="material-symbols-outlined text-[20px]">rocket_launch</span>
+            <span>Ver en GitHub Pages</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Background decorative circle -->
+      <div class="absolute -right-12 -bottom-12 w-64 h-64 rounded-full bg-white/5 pointer-events-none"></div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-auto border-t border-[#C1C7CE]/30 dark:border-[#41474D]/30 bg-[#F2F3FA] dark:bg-[#191C1E] py-8 text-xs text-[#72787E] dark:text-[#8B9198] transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-[#00658F] dark:text-[#85CEFF] text-[18px]">verified_user</span>
+        <span>Guía Torrevieja — Proyecto educativo de Desarrollo de Interfaces (2º DAM)</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span>Diseñado bajo especificaciones Material Design 3</span>
+        <span>•</span>
+        <button onclick="toggleTheme()" class="underline hover:text-[#191C1E] dark:hover:text-[#E1E2E5] cursor-pointer">
+          Cambiar Tema
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT PARA GESTIÓN DE TEMA CLARO / OSCURO (MATERIAL DESIGN 3) -->
+  <script>
+    function updateThemeIcon(isDark) {
+      const icon = document.getElementById('themeIcon');
+      if (icon) {
+        icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+      }
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isCurrentlyDark = html.classList.contains('dark');
+      
+      if (isCurrentlyDark) {
+        html.classList.remove('dark');
+        html.classList.add('light');
+        localStorage.setItem('theme', 'light');
+        updateThemeIcon(false);
+      } else {
+        html.classList.remove('light');
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        updateThemeIcon(true);
+      }
+    }
+
+    // Inicialización según preferencia guardada o sistema
+    (function initTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      
+      if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+        updateThemeIcon(true);
+      } else {
+        document.documentElement.classList.add('light');
+        document.documentElement.classList.remove('dark');
+        updateThemeIcon(false);
+      }
+    })();
+  </script>
+</body>
+</html>
